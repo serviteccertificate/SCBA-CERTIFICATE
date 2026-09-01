@@ -595,7 +595,7 @@
     renumber();fitRowCells();scheduleSave();
   }
 
-  function sectionRows(sec){return document.querySelectorAll((sec==='A'?'#rowsA':'#rowsB')+' tr:not(.xhdr)');}
+  function sectionRows(sec){return document.querySelectorAll((sec==='A'?'#rowsA':'#rowsB')+' tr:not(.xhdr):not(.pgmark)');}
 
   function renumber(){
     ['A','B'].forEach(function(sec){
