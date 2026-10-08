@@ -96,6 +96,7 @@
   .rowsbody td .codecell{text-transform:uppercase;}
   /* ทุกช่องในใบรับรองแสดงเป็นตัวพิมพ์ใหญ่ + จัดกึ่งกลาง */
   #sheet input{text-transform:uppercase;}
+  #sheet input.nocaps{text-transform:none;}   /* WORKING PRESSURE: พิมพ์เล็กได้ */
   #sheet input,#sheet textarea,#sheet select{text-align:center;}
   .rowsbody td input.loccell{text-align:center;}
   /* ซ่อนลูกศร/แถบ indicator ของ datalist เบราว์เซอร์ (กันบังตัวเลข + กันเบี้ยวซ้าย ทั้งบนจอและตอนพิมพ์) */
@@ -570,6 +571,7 @@
       if(c==='code'){td.innerHTML='<input data-col="code" class="codecell workcell"'+inAttr()+'>';}
       else if(CONDCOLS.indexOf(c)>=0){td.innerHTML='<input data-col="'+c+'" class="codecell condcell"'+inAttr()+'>';}
       else if(c==='location'){td.innerHTML='<input data-col="location" class="loccell"'+inAttr()+'>';}
+      else if(c==='wpressure'){td.innerHTML='<input data-col="wpressure" class="nocaps" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off">';}
       else{td.innerHTML='<input data-col="'+c+'"'+inAttr()+'>';}
       tr.appendChild(td);
     });
@@ -957,6 +959,7 @@
     var sheet=document.getElementById('sheet');
     if(sheet)sheet.addEventListener('input',function(e){
       var el=e.target;if(!el||el.tagName!=='INPUT')return;
+      if(el.classList.contains('nocaps'))return;   // ช่องที่อนุญาตตัวพิมพ์เล็ก
       var s=el.selectionStart,u=(el.value||'').toUpperCase();
       if(u!==el.value){el.value=u;try{el.setSelectionRange(s,s);}catch(_){}}
       if(el.classList.contains('loccell')){locFit(el);if(__menuInput===el)renderMenu(el.value);}
